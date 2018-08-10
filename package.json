@@ -1,0 +1,32 @@
+{
+  "name": "news-checkr",
+  "version": "1.0.0",
+  "description": "This is a news aggregator site I made.  The focus is on responsive design and learning TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "dev": "NODE_ENV=development nodemon --ignore /dist/js/**/*.js index.js",
+    "bundle": "parcel build dist/js/entry.js --out-file bundle.js --out-dir dist/js --no-source-maps  && rm -rf dist/js/*.map",
+    "start": "node index.js"
+  },
+  "author": "Cam",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "parcel-bundler": "^1.9.7"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "dotenv-safe": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "newsapi": "^2.3.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}
