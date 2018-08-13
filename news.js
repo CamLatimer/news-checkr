@@ -43,9 +43,8 @@ let getGeneral = async function(req, res, next){
           res.status(200);
           res.json(response);
         } else {
-          res.render('home', {
-            countryNews: JSON.stringify(response)
-          })
+          req.countryNews = JSON.stringify(response);
+          next();
         }
       })
       .catch((err) => {
@@ -89,6 +88,9 @@ function getWorld(req, res, next){
     category: 'general',
     pageSize: 10
   };
+  if(req.params.page){
+    opts.page = req.params.page;
+  }
 
   newsapi.v2.topHeadlines(opts)
     .then(response => {
@@ -97,8 +99,15 @@ function getWorld(req, res, next){
         err.status = 404;
         next(err);
       } else {
+        if(req.countryNews){
+          res.render('home', {
+            countryNews: req.countryNews,
+            worldNews: JSON.stringify(response)
+          })
+        } else {
           res.json(response);
           res.status(200);
+        }
       }
     })
     .catch((err) => {

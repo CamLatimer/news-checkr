@@ -19,10 +19,12 @@ app.use(bodyParser.json());
 if(process.env.NODE_ENV === 'development'){ app.use(bundleJs.middleware()); }
 
 // routes
-app.get('/', news.getGeneral)
+app.get('/', news.getGeneral, news.getWorld);
 app.get('/country/:country', news.getGeneral);
 app.get('/world', news.getWorld);
+app.get('/world/:page', news.getWorld);
 app.get('/category/:category', news.getCategory);
+app.get('*', news.getGeneral, news.getWorld)
 
 // error handling
 app.use((err, req, res, next) => {
