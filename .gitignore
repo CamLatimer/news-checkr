@@ -71,3 +71,8 @@ typings/
 
 # Serverless directories
 .serverless
+
+sandbox.js
+countries.json
+news.json
+worldNews.json
