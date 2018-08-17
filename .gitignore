@@ -77,3 +77,4 @@ countries.json
 news.json
 worldNews.json
 *.map
+dist/js/bundle.js

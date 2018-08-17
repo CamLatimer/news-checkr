@@ -19,12 +19,15 @@ app.use(bodyParser.json());
 if(process.env.NODE_ENV === 'development'){ app.use(bundleJs.middleware()); }
 
 // routes
-app.get('/', news.getGeneral, news.getWorld);
+app.get('/', (req, res, next) => { res.render('home'); });
 app.get('/country/:country', news.getGeneral);
 app.get('/world', news.getWorld);
 app.get('/world/:page', news.getWorld);
 app.get('/category/:category', news.getCategory);
-app.get('*', news.getGeneral, news.getWorld)
+app.get('/search', news.searchNews)
+app.get('/*', (req, res, next) => {
+  res.render('home');
+})
 
 // error handling
 app.use((err, req, res, next) => {
@@ -32,13 +35,14 @@ app.use((err, req, res, next) => {
     return next(err)
   }
 
-  // res.status(err.status);
+  res.status(err.status);
   res.json({
     error: {
       status: err.status || 500,
       message: err.message
     }
   })
+  
 });
 
 if(process.env.NODE_ENV == 'test'){

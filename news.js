@@ -1,58 +1,23 @@
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
+const countryNews = require('./news.json');
+const worldNews = require('./worldNews.json');
 
-let getGeneral = async function(req, res, next){
-
-  function headlines(cat) {
+function getGeneral(req, res, next){
 
     let opts = {
       country: req.params.country || 'us',
-      category: cat,
-      pageSize: 8,
+      category: 'general',
+      pageSize: 4,
     };
 
-    return new Promise((resolve, reject) => {
-      newsapi.v2.topHeadlines(opts)
-        .then(response => {
-          response.category = cat;
-          if(response.totalResults === 0) {
-            let err = new Error('404 were unable to get any results');
-            err.status = 404;
-            next(err);
-          } else {
-            resolve(response);
-          }
-        })
-        .catch((err) => {
-            reject(err);
-        });
-      });
-  }
-
-    let business = headlines('business');
-    let sports = headlines('sports');
-    let tech = headlines('technology');
-    let health = headlines('health');
-    let entertainment = headlines('entertainment');
-    let general = headlines('general');
-    let reqCategories = [business, sports, health, tech, entertainment, general];
-
-    await Promise.all(reqCategories)
-      .then((response) => {
-        if(req.params.country){
-          res.status(200);
-          res.json(response);
-        } else {
-          req.countryNews = JSON.stringify(response);
-          next();
-        }
+    newsapi.v2.topHeadlines(opts)
+      .then(response => {
+        handleResponse(response, res, next)
       })
       .catch((err) => {
-        res.status(500);
-        err.status = 500;
-        next(err);
+        handleErrors(err, res, next);
       });
-
 
 };
 
@@ -65,19 +30,10 @@ function getCategory(req, res, next){
 
       newsapi.v2.topHeadlines(opts)
         .then(response => {
-          if(response.totalResults === 0) {
-            let err = new Error('404 were unable to get any results');
-            err.status = 404;
-            next(err);
-          } else {
-              res.status(200);
-              res.json(response);
-          }
+          handleResponse(response, res, next)
         })
         .catch((err) => {
-          res.status(500);
-          err.status = 500;
-          next(err);
+          handleErrors(err, res, next);
         });
 
 }
@@ -92,30 +48,51 @@ function getWorld(req, res, next){
     opts.page = req.params.page;
   }
 
+
   newsapi.v2.topHeadlines(opts)
     .then(response => {
-      if(response.totalResults === 0) {
-        let err = new Error('404 were unable to get any results');
-        err.status = 404;
-        next(err);
-      } else {
-        if(req.countryNews){
-          res.render('home', {
-            countryNews: req.countryNews,
-            worldNews: JSON.stringify(response)
-          })
-        } else {
-          res.json(response);
-          res.status(200);
-        }
-      }
+      handleResponse(response, res, next)
     })
     .catch((err) => {
-        res.status(500);
-        err.status = 500;
-        next(err);
+      handleErrors(err, res, next);
     });
   }
 
+  function searchNews(req, res, next){
+    let opts = {
+      q: req.query.q,
+      sortyBy: 'relevancy',
+    }
 
-module.exports = {getGeneral, getCategory, getWorld};
+    if(req.query.page){
+      opts.page = req.query.page;
+    }
+
+    newsapi.v2.everything(opts)
+      .then(response => {
+        handleResponse(response, res, next)
+      })
+      .catch((err) => {
+        handleErrors(err, res, next);
+      });
+  }
+
+  function handleResponse(response, res, next){
+    if(response.totalResults === 0) {
+      let err = new Error('404 were unable to get any results');
+      err.status = 404;
+      next(err);
+    } else {
+        res.status(200);
+        res.json(response);
+    }
+  }
+
+  function handleErrors(err, res, next){
+    res.status(500);
+    err.status = 500;
+    next(err);
+  }
+
+
+module.exports = {getGeneral, getCategory, getWorld, searchNews};
