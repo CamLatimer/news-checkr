@@ -1,5 +1,4 @@
 import React from "react";
-import Article from './Article';
 
 export default class SearchResults extends React.Component {
   constructor(props){
@@ -17,21 +16,37 @@ export default class SearchResults extends React.Component {
       if(this.props.results === 'error'){
         return (
         <div>
-          <h1>An error occured, or nothing was returned from your search.</h1> <h1>Please start a new search or go back...</h1>
+          <h1>An error occured, or nothing was returned from your search.</h1>
+          <h1>Please start a new search or go back...</h1>
         </div>
         );
+      } else if (!this.props.results.length){
+        return <h1>Please start a new search or go back...</h1>
       } else {
         return (
-          <div>
+          <section className="searchResults newsWrapper">
               <header>
-                <h3>Results:</h3>
+                <h3>Top Headlines from Search:</h3>
               </header>
-              <section>
+                <ul>
                 {this.props.results.map((article, index) =>
-                    <Article key={index} headline={article.title} description={article.description} sourceUrl={article.url} source={article.source} imgUrl={article.urlToImage} publishedAt={article.publishedAt} />
+                  <li key={index} className="article articleGrid--small">
+                    <header>
+                      <h3><a href={article.url}>{article.title}</a></h3>
+                      <h5><a href={article.url}>({article.source.name})</a></h5>
+                      <summary>
+                        {article.description}
+                      </summary>
+                    </header>
+                    <div>
+                        <img src={article.urlToImage}
+                          onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
+                        }} />
+                    </div>
+                  </li>
                   )}
-              </section>
-            </div>
+                </ul>
+            </section>
         );
       }
   }

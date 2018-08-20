@@ -1,5 +1,6 @@
 import React from "react";
 import Header from './Header';
+import Nav from './Nav';
 import Home from './Home';
 import Topic from './Topic';
 import SearchResults from './SearchResults';
@@ -24,8 +25,8 @@ class App extends React.Component {
       topicNews: [],
       searchInput: '',
       searchResults: [],
-      searchPage: 1,
       searching: null,
+      menuOpen: false
     };
 
     this.searchNews = this.searchNews.bind(this);
@@ -36,6 +37,7 @@ class App extends React.Component {
     this.getCountryNews = this.getCountryNews.bind(this);
     this.getWorldNews = this.getWorldNews.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
 
@@ -73,6 +75,8 @@ class App extends React.Component {
     }).catch((err) => {
       console.log(err);
       this.setState({
+        searching: true,
+        searchInput: '',
         searchResults: 'error'
       })
     })
@@ -92,8 +96,7 @@ class App extends React.Component {
         country: country,
         countryNews: response.data.articles
       })
-    })
-      .catch((err) => {
+    }).catch((err) => {
         console.log(err);
         this.setState({
           searchResults: 'error'
@@ -130,7 +133,6 @@ class App extends React.Component {
   }
 
   getMoreNews(direction){
-    console.log('clicked');
     let pageNum = direction === 'next' ? this.state.worldPage + 1 : this.state.worldPage - 1;
     let totalWorld = this.state.worldNews;
     axios.get(`http://localhost:8080/world/${pageNum}`)
@@ -147,19 +149,26 @@ class App extends React.Component {
     })
   }
 
+  toggleMenu(){
+    this.setState({
+      menuOpen: !this.state.menuOpen
+    })
+  }
 
   render() {
-
     return (
-      <div>
         <BrowserRouter>
           <div>
               <Header
-              getSearchInput={this.getSearchInput}
-              searchInput={this.state.searchInput}
-              searchNews={this.searchNews}
-              getTopicNews={this.getTopicNews}
-              clearSearch={this.clearSearch}/>
+                getSearchInput={this.getSearchInput}
+                searchInput={this.state.searchInput}
+                searchNews={this.searchNews}
+                toggleMenu={this.toggleMenu} />
+              <Nav
+                getTopicNews={this.getTopicNews}
+                clearSearch={this.clearSearch}
+                menuOpen={this.state.menuOpen}
+                toggleMenu={this.toggleMenu}  />
 
               <Switch>
                 <Route exact path="/"
@@ -175,7 +184,8 @@ class App extends React.Component {
                       searching={this.state.searching}
                       getCountryNews={this.getCountryNews}
                       getWorldNews={this.getWorldNews}
-                   /> } />
+                   /> }
+                 />
                 <Route path="/topic/:topic"
                   component={(props) =>
                     <Topic
@@ -201,7 +211,6 @@ class App extends React.Component {
               </Switch>
             </div>
           </BrowserRouter>
-      </div>
 
     );
   }

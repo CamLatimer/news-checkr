@@ -24123,156 +24123,146 @@ var _reactRouterDom = require("react-router-dom");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Header(props) {
+  return _react2.default.createElement(
+    "header",
+    { className: "siteHeader" },
+    _react2.default.createElement(
+      "i",
+      { className: "material-icons menuBtn", onClick: props.toggleMenu },
+      "menu"
+    ),
+    _react2.default.createElement(
+      "h1",
+      null,
+      _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: "/" },
+        "NEWS CHECKR"
+      )
+    ),
+    _react2.default.createElement(
+      "form",
+      { onSubmit: props.searchNews },
+      _react2.default.createElement("input", { onChange: props.getSearchInput, type: "text", value: props.searchInput, placeholder: "Search" }),
+      _react2.default.createElement(
+        "button",
+        { className: "siteBtn" },
+        "GO"
+      )
+    )
+  );
+}
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"components/Nav.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Nav;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = require('react-router-dom');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Nav(props) {
   function switchTopic(event) {
+    props.toggleMenu();
     props.clearSearch();
     props.getTopicNews(event.target.textContent.toLowerCase());
   }
 
   return _react2.default.createElement(
-    "div",
-    null,
+    'nav',
+    { className: props.menuOpen === true ? 'slideOpen' : '' },
     _react2.default.createElement(
-      "header",
+      'ul',
       null,
       _react2.default.createElement(
-        "h1",
-        null,
-        "NEWS CHECKR"
+        'i',
+        { className: 'material-icons menuCloser', onClick: props.toggleMenu },
+        'cancel'
       ),
       _react2.default.createElement(
-        "nav",
+        'li',
         null,
         _react2.default.createElement(
-          "ul",
-          null,
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: props.clearSearch, to: "/" },
-              "Home"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { exact: true, onClick: switchTopic, to: "/topic/technology" },
-              "TECHNOLOGY"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: switchTopic, to: "/topic/science" },
-              "SCIENCE"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: switchTopic, to: "/topic/sports" },
-              "SPORTS"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              {
-                onClick: switchTopic, to: "/topic/entertainment" },
-              "ENTERTAINMENT"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: switchTopic, to: "/topic/health" },
-              "HEALTH"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: switchTopic, to: "/topic/business" },
-              "BUSINESS"
-            )
-          ),
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement(
-              _reactRouterDom.NavLink,
-              { onClick: switchTopic, to: "/topic/politics" },
-              "POLITICS"
-            )
-          )
+          _reactRouterDom.NavLink,
+          { onClick: (props.clearSearch, props.toggleMenu), to: '/' },
+          'HOME'
         )
       ),
       _react2.default.createElement(
-        "form",
-        { onSubmit: props.searchNews },
-        _react2.default.createElement("input", { onChange: props.getSearchInput, type: "search", value: props.searchInput, placeholder: "Search" }),
+        'li',
+        null,
         _react2.default.createElement(
-          "button",
-          null,
-          "GO"
+          _reactRouterDom.NavLink,
+          { exact: true, onClick: switchTopic, to: '/topic/technology' },
+          'TECHNOLOGY'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          { onClick: switchTopic, to: '/topic/science' },
+          'SCIENCE'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          { onClick: switchTopic, to: '/topic/sports' },
+          'SPORTS'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          {
+            onClick: switchTopic, to: '/topic/entertainment' },
+          'ENTERTAINMENT'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          { onClick: switchTopic, to: '/topic/health' },
+          'HEALTH'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          { onClick: switchTopic, to: '/topic/business' },
+          'BUSINESS'
+        )
+      ),
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.NavLink,
+          { onClick: switchTopic, to: '/topic/politics' },
+          'POLITICS'
         )
       )
     )
   );
 }
-},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"components/Article.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = require("react");
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Article(props) {
-  return _react2.default.createElement(
-    "div",
-    { className: "" },
-    _react2.default.createElement(
-      "article",
-      { className: "" },
-      _react2.default.createElement(
-        "header",
-        null,
-        _react2.default.createElement(
-          "h3",
-          null,
-          props.headline
-        )
-      ),
-      _react2.default.createElement(
-        "summary",
-        null,
-        props.description
-      )
-    )
-  );
-}
-
-exports.default = Article;
-},{"react":"../../node_modules/react/index.js"}],"../../countries.json":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"../../countries.json":[function(require,module,exports) {
 module.exports = [{
   "name": "United Arab Emirates",
   "code": "ae"
@@ -24449,12 +24439,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Article = require('./Article');
-
-var _Article2 = _interopRequireDefault(_Article);
-
-var _reactRouterDom = require('react-router-dom');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24499,36 +24483,75 @@ var Home = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      if (this.props.countryNews === 'error') {
-        return _react2.default.createElement(
-          'h1',
-          null,
-          'An error occurred... pleast try again...'
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'section',
-            null,
-            _react2.default.createElement(
-              'header',
-              null,
-              _react2.default.createElement(
-                'h1',
-                null,
-                'TOP HEADLINES for ',
-                _react2.default.createElement(CountrySelector, { country: this.props.country, toggleCountry: this.props.toggleCountry })
-              )
-            ),
-            this.props.countryNewsLoaded === true && this.props.countryNews.map(function (article, index) {
-              return _react2.default.createElement(_Article2.default, { key: index, headline: article.title, description: article.description, sourceUrl: article.url, source: article.source, imgUrl: article.urlToImage, publishedAt: article.publishedAt });
-            })
-          ),
+      return _react2.default.createElement(
+        'section',
+        { className: 'homeNews newsWrapper' },
+        _react2.default.createElement(
+          'section',
+          { className: 'countryNews' },
           _react2.default.createElement(
             'header',
-            null,
+            { className: 'newsHeader countryNewsHeader' },
+            _react2.default.createElement(
+              'h1',
+              null,
+              'TOP HEADLINES for',
+              _react2.default.createElement(CountrySelector, { country: this.props.country, toggleCountry: this.props.toggleCountry })
+            )
+          ),
+          _react2.default.createElement(
+            'ul',
+            { className: 'articleGrid articleGrid--country' },
+            this.props.countryNewsLoaded === true && this.props.countryNews.map(function (article, index) {
+              return _react2.default.createElement(
+                'li',
+                { key: index, className: 'article countryArticle' },
+                _react2.default.createElement(
+                  'header',
+                  null,
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      article.title
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      '(',
+                      article.source.name,
+                      ')'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'summary',
+                    null,
+                    article.description
+                  )
+                ),
+                _react2.default.createElement(
+                  'a',
+                  { href: article.url },
+                  _react2.default.createElement('img', { src: article.urlToImage, onError: function onError(event) {
+                      event.target.src = "https://via.placeholder.com/350x150";
+                    } })
+                )
+              );
+            })
+          )
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'worldNews' },
+          _react2.default.createElement(
+            'header',
+            { className: 'newsHeader' },
             _react2.default.createElement(
               'h1',
               null,
@@ -24536,21 +24559,60 @@ var Home = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'section',
-            null,
+            'ul',
+            { className: 'articleGrid' },
             this.props.worldNewsLoaded === true && this.props.worldNews.map(function (article, index) {
-              return _react2.default.createElement(_Article2.default, { key: index, headline: article.title, description: article.description, sourceUrl: article.url, source: article.source, imgUrl: article.urlToImage, publishedAt: article.publishedAt });
-            }),
-            _react2.default.createElement(
-              'button',
-              { onClick: function onClick() {
-                  return _this2.props.getMoreNews('next');
-                } },
-              'See More'
-            )
+              return _react2.default.createElement(
+                'li',
+                { key: index, className: 'article articleGrid--small' },
+                _react2.default.createElement(
+                  'header',
+                  null,
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      article.title
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      '(',
+                      article.source.name,
+                      ')'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'summary',
+                    null,
+                    article.description
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement('img', { src: article.urlToImage, onError: function onError(event) {
+                      event.target.src = "https://via.placeholder.com/350x150";
+                    } })
+                )
+              );
+            })
+          ),
+          _react2.default.createElement(
+            'button',
+            { className: 'siteBtn', onClick: function onClick() {
+                return _this2.props.getMoreNews('next');
+              } },
+            'See More'
           )
-        );
-      }
+        )
+      );
     }
   }]);
 
@@ -24569,11 +24631,11 @@ function CountrySelector(props) {
     );
   });
   return _react2.default.createElement(
-    'div',
+    'span',
     null,
     _react2.default.createElement(
       'select',
-      {
+      { className: 'countrySelector',
         defaultValue: props.country, onChange: props.toggleCountry },
       countryOpts
     )
@@ -24581,7 +24643,7 @@ function CountrySelector(props) {
 }
 
 exports.default = Home;
-},{"react":"../../node_modules/react/index.js","./Article":"components/Article.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js","../../../countries.json":"../../countries.json"}],"components/Topic.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","../../../countries.json":"../../countries.json"}],"components/Topic.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -24593,10 +24655,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _Article = require('./Article');
-
-var _Article2 = _interopRequireDefault(_Article);
 
 var _reactRouterDom = require('react-router-dom');
 
@@ -24644,11 +24702,11 @@ var Topic = function (_React$Component) {
         );
       } else {
         return _react2.default.createElement(
-          'div',
-          null,
+          'section',
+          { className: 'topicNews newsWrapper' },
           _react2.default.createElement(
             'header',
-            null,
+            { className: 'newsHeader' },
             _react2.default.createElement(
               'h1',
               null,
@@ -24658,10 +24716,50 @@ var Topic = function (_React$Component) {
             )
           ),
           _react2.default.createElement(
-            'section',
+            'ul',
             null,
             this.props.topicNews.map(function (article, index) {
-              return _react2.default.createElement(_Article2.default, { key: index, headline: article.title, description: article.description, sourceUrl: article.url, source: article.source, imgUrl: article.urlToImage, publishedAt: article.publishedAt });
+              return _react2.default.createElement(
+                'li',
+                { key: index, className: index > 0 ? 'article articleGrid--small' : 'article' },
+                _react2.default.createElement(
+                  'header',
+                  null,
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      article.title
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'h5',
+                    null,
+                    _react2.default.createElement(
+                      'a',
+                      { href: article.url },
+                      '(',
+                      article.source.name,
+                      ')'
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'summary',
+                    null,
+                    article.description
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  null,
+                  _react2.default.createElement('img', { src: article.urlToImage,
+                    onError: function onError(event) {
+                      event.target.src = "https://via.placeholder.com/350x150";
+                    } })
+                )
+              );
             })
           )
         );
@@ -24673,8 +24771,8 @@ var Topic = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Topic;
-},{"react":"../../node_modules/react/index.js","./Article":"components/Article.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"components/SearchResults.js":[function(require,module,exports) {
-'use strict';
+},{"react":"../../node_modules/react/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"components/SearchResults.js":[function(require,module,exports) {
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -24682,13 +24780,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _Article = require('./Article');
-
-var _Article2 = _interopRequireDefault(_Article);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24708,49 +24802,94 @@ var SearchResults = function (_React$Component) {
   }
 
   _createClass(SearchResults, [{
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       if (this.props.searching === true) {
         this.props.clearSearch();
       }
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       if (this.props.results === 'error') {
         return _react2.default.createElement(
-          'div',
+          "div",
           null,
           _react2.default.createElement(
-            'h1',
+            "h1",
             null,
-            'An error occured, or nothing was returned from your search.'
+            "An error occured, or nothing was returned from your search."
           ),
-          ' ',
           _react2.default.createElement(
-            'h1',
+            "h1",
             null,
-            'Please start a new search or go back...'
+            "Please start a new search or go back..."
           )
+        );
+      } else if (!this.props.results.length) {
+        return _react2.default.createElement(
+          "h1",
+          null,
+          "Please start a new search or go back..."
         );
       } else {
         return _react2.default.createElement(
-          'div',
-          null,
+          "section",
+          { className: "searchResults newsWrapper" },
           _react2.default.createElement(
-            'header',
+            "header",
             null,
             _react2.default.createElement(
-              'h3',
+              "h3",
               null,
-              'Results:'
+              "Top Headlines from Search:"
             )
           ),
           _react2.default.createElement(
-            'section',
+            "ul",
             null,
             this.props.results.map(function (article, index) {
-              return _react2.default.createElement(_Article2.default, { key: index, headline: article.title, description: article.description, sourceUrl: article.url, source: article.source, imgUrl: article.urlToImage, publishedAt: article.publishedAt });
+              return _react2.default.createElement(
+                "li",
+                { key: index, className: "article articleGrid--small" },
+                _react2.default.createElement(
+                  "header",
+                  null,
+                  _react2.default.createElement(
+                    "h3",
+                    null,
+                    _react2.default.createElement(
+                      "a",
+                      { href: article.url },
+                      article.title
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "h5",
+                    null,
+                    _react2.default.createElement(
+                      "a",
+                      { href: article.url },
+                      "(",
+                      article.source.name,
+                      ")"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    "summary",
+                    null,
+                    article.description
+                  )
+                ),
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement("img", { src: article.urlToImage,
+                    onError: function onError(event) {
+                      event.target.src = "https://via.placeholder.com/350x150";
+                    } })
+                )
+              );
             })
           )
         );
@@ -24762,7 +24901,7 @@ var SearchResults = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SearchResults;
-},{"react":"../../node_modules/react/index.js","./Article":"components/Article.js"}],"../../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js"}],"../../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -26403,6 +26542,10 @@ var _Header = require('./Header');
 
 var _Header2 = _interopRequireDefault(_Header);
 
+var _Nav = require('./Nav');
+
+var _Nav2 = _interopRequireDefault(_Nav);
+
 var _Home = require('./Home');
 
 var _Home2 = _interopRequireDefault(_Home);
@@ -26447,8 +26590,8 @@ var App = function (_React$Component) {
       topicNews: [],
       searchInput: '',
       searchResults: [],
-      searchPage: 1,
-      searching: null
+      searching: null,
+      menuOpen: false
     };
 
     _this.searchNews = _this.searchNews.bind(_this);
@@ -26459,6 +26602,7 @@ var App = function (_React$Component) {
     _this.getCountryNews = _this.getCountryNews.bind(_this);
     _this.getWorldNews = _this.getWorldNews.bind(_this);
     _this.clearSearch = _this.clearSearch.bind(_this);
+    _this.toggleMenu = _this.toggleMenu.bind(_this);
     return _this;
   }
 
@@ -26502,6 +26646,8 @@ var App = function (_React$Component) {
       }).catch(function (err) {
         console.log(err);
         _this3.setState({
+          searching: true,
+          searchInput: '',
           searchResults: 'error'
         });
       });
@@ -26568,7 +26714,6 @@ var App = function (_React$Component) {
     value: function getMoreNews(direction) {
       var _this7 = this;
 
-      console.log('clicked');
       var pageNum = direction === 'next' ? this.state.worldPage + 1 : this.state.worldPage - 1;
       var totalWorld = this.state.worldNews;
       _axios2.default.get('http://localhost:8080/world/' + pageNum).then(function (response) {
@@ -26584,70 +26729,78 @@ var App = function (_React$Component) {
       });
     }
   }, {
+    key: 'toggleMenu',
+    value: function toggleMenu() {
+      this.setState({
+        menuOpen: !this.state.menuOpen
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this8 = this;
 
       return _react2.default.createElement(
-        'div',
+        _reactRouterDom.BrowserRouter,
         null,
         _react2.default.createElement(
-          _reactRouterDom.BrowserRouter,
+          'div',
           null,
+          _react2.default.createElement(_Header2.default, {
+            getSearchInput: this.getSearchInput,
+            searchInput: this.state.searchInput,
+            searchNews: this.searchNews,
+            toggleMenu: this.toggleMenu }),
+          _react2.default.createElement(_Nav2.default, {
+            getTopicNews: this.getTopicNews,
+            clearSearch: this.clearSearch,
+            menuOpen: this.state.menuOpen,
+            toggleMenu: this.toggleMenu }),
           _react2.default.createElement(
-            'div',
+            _reactRouterDom.Switch,
             null,
-            _react2.default.createElement(_Header2.default, {
-              getSearchInput: this.getSearchInput,
-              searchInput: this.state.searchInput,
-              searchNews: this.searchNews,
-              getTopicNews: this.getTopicNews,
-              clearSearch: this.clearSearch }),
-            _react2.default.createElement(
-              _reactRouterDom.Switch,
-              null,
-              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/',
-                component: function component(props) {
-                  return _react2.default.createElement(_Home2.default, _extends({}, props, {
-                    country: _this8.state.country,
-                    countryNewsLoaded: _this8.state.countryNewsLoaded,
-                    worldNewsLoaded: _this8.state.worldNewsLoaded,
-                    countryNews: _this8.state.countryNews,
-                    worldNews: _this8.state.worldNews,
-                    getMoreNews: _this8.getMoreNews,
-                    toggleCountry: _this8.toggleCountry,
-                    searching: _this8.state.searching,
-                    getCountryNews: _this8.getCountryNews,
-                    getWorldNews: _this8.getWorldNews
-                  }));
-                } }),
-              _react2.default.createElement(_reactRouterDom.Route, { path: '/topic/:topic',
-                component: function component(props) {
-                  return _react2.default.createElement(_Topic2.default, _extends({}, props, {
-                    getTopicNews: _this8.getTopicNews,
-                    topicNews: _this8.state.topicNews,
-                    searching: _this8.state.searching }));
-                } }),
-              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/results',
-                component: function component(props) {
-                  return _react2.default.createElement(_SearchResults2.default, _extends({}, props, {
-                    searchInput: _this8.state.searchInput,
-                    searchNews: _this8.searchNews,
-                    results: _this8.state.searchResults,
-                    clearSearch: _this8.clearSearch,
-                    searching: _this8.state.searching,
-                    error: _this8.state.error }));
-                } }),
-              _react2.default.createElement(_reactRouterDom.Route, {
-                component: function component() {
-                  return _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Requested Info Not Found...'
-                  );
-                }
-              })
-            )
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/',
+              component: function component(props) {
+                return _react2.default.createElement(_Home2.default, _extends({}, props, {
+                  country: _this8.state.country,
+                  countryNewsLoaded: _this8.state.countryNewsLoaded,
+                  worldNewsLoaded: _this8.state.worldNewsLoaded,
+                  countryNews: _this8.state.countryNews,
+                  worldNews: _this8.state.worldNews,
+                  getMoreNews: _this8.getMoreNews,
+                  toggleCountry: _this8.toggleCountry,
+                  searching: _this8.state.searching,
+                  getCountryNews: _this8.getCountryNews,
+                  getWorldNews: _this8.getWorldNews
+                }));
+              }
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/topic/:topic',
+              component: function component(props) {
+                return _react2.default.createElement(_Topic2.default, _extends({}, props, {
+                  getTopicNews: _this8.getTopicNews,
+                  topicNews: _this8.state.topicNews,
+                  searching: _this8.state.searching }));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/results',
+              component: function component(props) {
+                return _react2.default.createElement(_SearchResults2.default, _extends({}, props, {
+                  searchInput: _this8.state.searchInput,
+                  searchNews: _this8.searchNews,
+                  results: _this8.state.searchResults,
+                  clearSearch: _this8.clearSearch,
+                  searching: _this8.state.searching,
+                  error: _this8.state.error }));
+              } }),
+            _react2.default.createElement(_reactRouterDom.Route, {
+              component: function component() {
+                return _react2.default.createElement(
+                  'h1',
+                  null,
+                  'Requested Info Not Found...'
+                );
+              }
+            })
           )
         )
       );
@@ -26658,7 +26811,7 @@ var App = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = App;
-},{"react":"../../node_modules/react/index.js","./Header":"components/Header.js","./Home":"components/Home.js","./Topic":"components/Topic.js","./SearchResults":"components/SearchResults.js","axios":"../../node_modules/axios/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"entry.js":[function(require,module,exports) {
+},{"react":"../../node_modules/react/index.js","./Header":"components/Header.js","./Nav":"components/Nav.js","./Home":"components/Home.js","./Topic":"components/Topic.js","./SearchResults":"components/SearchResults.js","axios":"../../node_modules/axios/index.js","react-router-dom":"../../node_modules/react-router-dom/es/index.js"}],"entry.js":[function(require,module,exports) {
 'use strict';
 
 var _react = require('react');
@@ -26705,7 +26858,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63190' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '63047' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

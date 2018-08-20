@@ -1,5 +1,4 @@
 import React from "react";
-import Article from './Article';
 import { Redirect } from 'react-router-dom';
 
 class Topic extends React.Component{
@@ -26,16 +25,29 @@ class Topic extends React.Component{
       return <h1>An error occurred... pleast try again...</h1>
     } else {
       return (
-        <div>
-            <header>
+        <section className="topicNews newsWrapper">
+            <header className="newsHeader">
               <h1>TOP {this.props.match.params.topic.toUpperCase()} HEADLINES </h1>
             </header>
-            <section>
+            <ul>
               {this.props.topicNews.map((article, index) =>
-                <Article key={index} headline={article.title} description={article.description} sourceUrl={article.url} source={article.source} imgUrl={article.urlToImage} publishedAt={article.publishedAt} />
+                <li key={index} className={index > 0 ? `article articleGrid--small` : `article`}>
+                  <header>
+                    <h3><a href={article.url}>{article.title}</a></h3>
+                    <h5><a href={article.url}>({article.source.name})</a></h5>
+                    <summary>
+                      {article.description}
+                    </summary>
+                  </header>
+                  <div>
+                      <img src={article.urlToImage}
+                        onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
+                      }} />
+                  </div>
+                </li>
               )}
-            </section>
-        </div>
+            </ul>
+        </section>
       );
     }
   }

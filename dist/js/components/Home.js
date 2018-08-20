@@ -1,6 +1,4 @@
 import React from "react";
-import Article from './Article';
-import { Redirect } from 'react-router-dom';
 
 class Home extends React.Component {
   constructor(props) {
@@ -27,33 +25,65 @@ componentDidUpdate(){
 }
 
   render() {
-
-    if(this.props.countryNews === 'error'){
-      return <h1>An error occurred... pleast try again...</h1>
-    } else {
       return (
-        <div>
-          <section>
-            <header>
-              <h1>TOP HEADLINES for <CountrySelector country={this.props.country} toggleCountry={this.props.toggleCountry} /></h1>
+        <section className='homeNews newsWrapper'>
 
+          <section className="countryNews">
+            <header className="newsHeader countryNewsHeader">
+              <h1>
+                TOP HEADLINES for
+                <CountrySelector  country={this.props.country} toggleCountry={this.props.toggleCountry} />
+              </h1>
             </header>
+
+            <ul className="articleGrid articleGrid--country">
             {this.props.countryNewsLoaded === true &&
               this.props.countryNews.map((article, index) =>
-                  <Article key={index} headline={article.title} description={article.description} sourceUrl={article.url} source={article.source} imgUrl={article.urlToImage} publishedAt={article.publishedAt} /> )}
+              <li key={index} className="article countryArticle">
+                <header>
+                  <h3><a href={article.url}>{article.title}</a></h3>
+                  <h5><a href={article.url}>({article.source.name})</a></h5>
+                  <summary>
+                    {article.description}
+                  </summary>
+                </header>
+                  <a href={article.url}>
+                    <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
+                  }} />
+                  </a>
+              </li>)}
+            </ul>
           </section>
-          <header>
-            <h1>TOP HEADLINES WORLDWIDE</h1>
-          </header>
-            <section>
+
+          <section className="worldNews">
+            <header className="newsHeader">
+              <h1>TOP HEADLINES WORLDWIDE</h1>
+            </header>
+            <ul className="articleGrid">
               {this.props.worldNewsLoaded === true &&
                 this.props.worldNews.map((article, index) =>
-                    <Article key={index} headline={article.title} description={article.description} sourceUrl={article.url} source={article.source} imgUrl={article.urlToImage} publishedAt={article.publishedAt} /> )}
-            <button onClick={() => this.props.getMoreNews('next')}>See More</button>
-            </section>
-          </div>
+                    <li key={index} className="article articleGrid--small">
+                      <header>
+                        <h3><a href={article.url}>{article.title}</a></h3>
+                        <h5><a href={article.url}>({article.source.name})</a></h5>
+                        <summary>
+                          {article.description}
+                        </summary>
+                      </header>
+                      <div>
+                        <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
+                      }} />
+                      </div>
+                    </li>)}
+            </ul>
+            <button className="siteBtn" onClick={() => this.props.getMoreNews('next')}>
+              See More
+            </button>
+          </section>
+
+
+          </section>
       );
-    }
   }
 }
 
@@ -65,12 +95,12 @@ function CountrySelector(props){
     return <option key={index} value={country.code} >{country.name}</option>;
   });
     return (
-      <div>
-        <select
+      <span>
+        <select className='countrySelector'
           defaultValue={props.country} onChange={props.toggleCountry} >
           {countryOpts}
         </select>
-      </div>
+      </span>
     );
 
 }

@@ -42,7 +42,7 @@ app.use((err, req, res, next) => {
       message: err.message
     }
   })
-  
+
 });
 
 if(process.env.NODE_ENV == 'test'){
