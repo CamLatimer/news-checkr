@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "This is a news aggregator site I made.  The focus is on responsive design and learning TDD",
   "main": "index.js",
+  "engines": {
+    "node": "8.4.0"
+  },
   "scripts": {
     "test": "NODE_ENV=test mocha",
     "dev": "NODE_ENV=development nodemon --ignore /dist/js/**/*.js index.js",

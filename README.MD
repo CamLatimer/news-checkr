@@ -10,4 +10,4 @@ Users can see the top news headlines for different news categories.
 
 Users can search for and get a list of news articles.
 
-To check out the project locally, get an API key from https://newsapi.org.  Then clone or download the repo, run `npm install`, then `npm run dev`, and go to http://localhost:8080 in a browser.
+To check out the project locally, get an API key from https://newsapi.org.  Then clone or download the repo, run `npm install`, then `npm run dev`, and go to ${process.env.HOSTDOMAIN} in a browser.

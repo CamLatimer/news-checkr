@@ -42,7 +42,7 @@ class App extends React.Component {
 
 
   getTopicNews(topic){
-    axios.get(`http://localhost:8080/category/${topic}`)
+    axios.get(`${process.env.HOSTDOMAIN}/category/${topic}`)
     .then((response) => {
       this.setState({
         topicNews: response.data.articles,
@@ -65,7 +65,7 @@ class App extends React.Component {
 
   searchNews(event){
     event.preventDefault();
-    axios.get(`http://localhost:8080/search?q=${this.state.searchInput}`)
+    axios.get(`${process.env.HOSTDOMAIN}/search?q=${this.state.searchInput}`)
     .then((response) => {
       this.setState({
         searchResults: response.data.articles,
@@ -90,7 +90,7 @@ class App extends React.Component {
 
   toggleCountry(event){
     let country = event.target.value;
-    axios.get(`http://localhost:8080/country/${country}`)
+    axios.get(`${process.env.HOSTDOMAIN}/country/${country}`)
     .then((response) => {
       this.setState({
         country: country,
@@ -105,7 +105,7 @@ class App extends React.Component {
   }
 
   getCountryNews(){
-    axios.get(`http://localhost:8080/country/${this.state.country}`)
+    axios.get(`${process.env.HOSTDOMAIN}/country/${this.state.country}`)
     .then((response) => {
       this.setState({
         countryNews: response.data.articles,
@@ -117,7 +117,7 @@ class App extends React.Component {
   }
 
   getWorldNews(){
-    axios.get(`http://localhost:8080/world`)
+    axios.get(`${process.env.HOSTDOMAIN}/world`)
     .then((response) => {
       this.setState({
         worldNews: response.data.articles,
@@ -135,7 +135,7 @@ class App extends React.Component {
   getMoreNews(direction){
     let pageNum = direction === 'next' ? this.state.worldPage + 1 : this.state.worldPage - 1;
     let totalWorld = this.state.worldNews;
-    axios.get(`http://localhost:8080/world/${pageNum}`)
+    axios.get(`${process.env.HOSTDOMAIN}/world/${pageNum}`)
     .then((response) => {
       this.setState({
         worldNews: totalWorld.concat(response.data.articles),
