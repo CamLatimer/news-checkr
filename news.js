@@ -1,7 +1,5 @@
 const NewsAPI = require('newsapi');
 const newsapi = new NewsAPI(process.env.NEWS_API_KEY);
-const countryNews = require('./news.json');
-const worldNews = require('./worldNews.json');
 
 function getGeneral(req, res, next){
 

@@ -33,8 +33,8 @@ class Topic extends React.Component{
               {this.props.topicNews.map((article, index) =>
                 <li key={index} className={index > 0 ? `article articleGrid--small` : `article`}>
                   <header>
-                    <h3><a href={article.url}>{article.title}</a></h3>
-                    <h5><a href={article.url}>({article.source.name})</a></h5>
+                    <h3><a href={article.url} target="_blank">{article.title}</a></h3>
+                    <h5><a href={article.url} target="_blank">({article.source.name})</a></h5>
                     <summary>
                       {article.description}
                     </summary>

@@ -38,7 +38,7 @@ componentDidUpdate(){
             {this.props.countryNewsLoaded === true &&
               this.props.countryNews.map((article, index) =>
                 <li  className="article countryArticle" key={index} >
-                  <a href={article.url}>
+                  <a href={article.url} target="_blank">
                 <header>
                   <h3>{article.title}</h3>
                   <h5>({article.source.name})</h5>
@@ -61,7 +61,7 @@ componentDidUpdate(){
               {this.props.worldNewsLoaded === true &&
                 this.props.worldNews.map((article, index) =>
                     <li  key={index} className="article articleGrid--small">
-                      <a href={article.url}
+                      <a href={article.url} target="_blank"
                         className=" articleGrid--small">
                       <header>
                         <h3>{article.title}</h3>

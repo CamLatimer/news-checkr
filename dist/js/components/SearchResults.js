@@ -32,8 +32,8 @@ export default class SearchResults extends React.Component {
                 {this.props.results.map((article, index) =>
                   <li key={index} className="article articleGrid--small">
                     <header>
-                      <h3><a href={article.url}>{article.title}</a></h3>
-                      <h5><a href={article.url}>({article.source.name})</a></h5>
+                      <h3><a href={article.url} target="_blank">{article.title}</a></h3>
+                      <h5><a href={article.url} target="_blank">({article.source.name})</a></h5>
                       <summary>
                         {article.description}
                       </summary>

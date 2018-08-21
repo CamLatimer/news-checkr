@@ -138,7 +138,7 @@ nav ul li a:hover{
   margin-bottom: .5rem;
 }
 .article img{
-  width: 100%;
+  max-width: 100%;
   margin-bottom: .5rem;
 }
 .article header p{
