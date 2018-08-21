@@ -155,6 +155,14 @@ class App extends React.Component {
     })
   }
 
+  componentDidMount(){
+    window.addEventListener('resize', () => {
+      this.setState({
+        menuOpen: false
+      })
+    })
+  }
+
   render() {
     return (
         <BrowserRouter>

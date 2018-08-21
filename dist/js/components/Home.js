@@ -3,8 +3,6 @@ import React from "react";
 class Home extends React.Component {
   constructor(props) {
   super(props);
-  this.state = {
-  }
 }
 
 componentDidMount(){
@@ -39,16 +37,16 @@ componentDidUpdate(){
             <ul className="articleGrid articleGrid--country">
             {this.props.countryNewsLoaded === true &&
               this.props.countryNews.map((article, index) =>
-              <li key={index} className="article countryArticle">
-                <header>
-                  <h3><a href={article.url}>{article.title}</a></h3>
-                  <h5><a href={article.url}>({article.source.name})</a></h5>
-                  <summary>
-                    {article.description}
-                  </summary>
-                </header>
+                <li  className="article countryArticle" key={index} >
                   <a href={article.url}>
-                    <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
+                <header>
+                  <h3>{article.title}</h3>
+                  <h5>({article.source.name})</h5>
+                  <p>
+                    {article.description}
+                  </p>
+                </header>
+                <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
                   }} />
                   </a>
               </li>)}
@@ -62,18 +60,21 @@ componentDidUpdate(){
             <ul className="articleGrid">
               {this.props.worldNewsLoaded === true &&
                 this.props.worldNews.map((article, index) =>
-                    <li key={index} className="article articleGrid--small">
+                    <li  key={index} className="article articleGrid--small">
+                      <a href={article.url}
+                        className=" articleGrid--small">
                       <header>
-                        <h3><a href={article.url}>{article.title}</a></h3>
-                        <h5><a href={article.url}>({article.source.name})</a></h5>
-                        <summary>
+                        <h3>{article.title}</h3>
+                        <h5>({article.source.name})</h5>
+                        <p>
                           {article.description}
-                        </summary>
+                        </p>
                       </header>
                       <div>
                         <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
                       }} />
                       </div>
+                      </a>
                     </li>)}
             </ul>
             <button className="siteBtn" onClick={() => this.props.getMoreNews('next')}>
