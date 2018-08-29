@@ -1,4 +1,5 @@
 import React from "react";
+import LazyImg from './LazyImg';
 
 class Home extends React.Component {
   constructor(props) {
@@ -46,8 +47,7 @@ componentDidUpdate(){
                     {article.description}
                   </p>
                 </header>
-                <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
-                  }} />
+                <LazyImg src={article.urlToImage} />
                   </a>
               </li>)}
             </ul>
@@ -71,8 +71,7 @@ componentDidUpdate(){
                         </p>
                       </header>
                       <div>
-                        <img src={article.urlToImage} onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
-                      }} />
+                        <LazyImg src={article.urlToImage} />
                       </div>
                       </a>
                     </li>)}

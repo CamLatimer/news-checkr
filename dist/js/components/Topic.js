@@ -1,5 +1,6 @@
 import React from "react";
 import { Redirect } from 'react-router-dom';
+import LazyImg from './LazyImg';
 
 class Topic extends React.Component{
   constructor(props){
@@ -40,9 +41,7 @@ class Topic extends React.Component{
                     </summary>
                   </header>
                   <div>
-                      <img src={article.urlToImage}
-                        onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
-                      }} />
+                    <LazyImg src={article.urlToImage} />
                   </div>
                 </li>
               )}

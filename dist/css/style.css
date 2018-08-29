@@ -141,6 +141,13 @@ nav ul li a:hover{
   max-width: 100%;
   margin-bottom: .5rem;
 }
+.lazyImg{
+  opacity:0;
+  transition: 2.5s;
+}
+.loaded{
+  opacity: 1;
+}
 .article header p{
   margin-bottom: .5rem;
 }

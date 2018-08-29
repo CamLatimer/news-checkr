@@ -1,4 +1,5 @@
 import React from "react";
+import LazyImg from './LazyImg';
 
 export default class SearchResults extends React.Component {
   constructor(props){
@@ -39,9 +40,7 @@ export default class SearchResults extends React.Component {
                       </summary>
                     </header>
                     <div>
-                        <img src={article.urlToImage}
-                          onError={(event) => { event.target.src="https://via.placeholder.com/350x150"
-                        }} />
+                      <LazyImg src={article.urlToImage} />
                     </div>
                   </li>
                   )}
