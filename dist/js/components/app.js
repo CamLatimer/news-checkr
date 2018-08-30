@@ -22,61 +22,29 @@ class App extends React.Component {
       countryNewsLoaded: false,
       worldNewsLoaded: false,
       worldPage: 1,
-      topicNews: [],
-      searchInput: '',
       searchResults: [],
       searching: null,
-      menuOpen: false
     };
 
     this.searchNews = this.searchNews.bind(this);
-    this.getSearchInput = this.getSearchInput.bind(this);
-    this.getTopicNews = this.getTopicNews.bind(this);
     this.toggleCountry = this.toggleCountry.bind(this);
     this.getMoreNews = this.getMoreNews.bind(this);
     this.getCountryNews = this.getCountryNews.bind(this);
     this.getWorldNews = this.getWorldNews.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
-    this.toggleMenu = this.toggleMenu.bind(this);
   }
 
-
-  getTopicNews(topic){
-    axios.get(`${process.env.HOSTDOMAIN}/category/${topic}`)
-    .then((response) => {
-      this.setState({
-        topicNews: response.data.articles,
-        countryNews: [],
-        worldNews: []
-      });
-    }).catch((err) => {
-      console.log(err);
-      this.setState({
-        topicNews: 'error'
-      })
-    })
-  }
-
-  getSearchInput(event){
-    this.setState({
-      searchInput: event.target.value
-    });
-  }
-
-  searchNews(event){
-    event.preventDefault();
-    axios.get(`${process.env.HOSTDOMAIN}/search?q=${this.state.searchInput}`)
+  searchNews(searchInput){
+    axios.get(`${process.env.HOSTDOMAIN}/search?q=${searchInput}`)
     .then((response) => {
       this.setState({
         searchResults: response.data.articles,
         searching: true,
-        searchInput: ''
       })
     }).catch((err) => {
       console.log(err);
       this.setState({
         searching: true,
-        searchInput: '',
         searchResults: 'error'
       })
     })
@@ -149,35 +117,14 @@ class App extends React.Component {
     })
   }
 
-  toggleMenu(){
-    this.setState({
-      menuOpen: !this.state.menuOpen
-    })
-  }
-
-  componentDidMount(){
-    window.addEventListener('resize', () => {
-      this.setState({
-        menuOpen: false
-      })
-    })
-  }
-
   render() {
     return (
         <BrowserRouter>
           <div>
               <Header
-                getSearchInput={this.getSearchInput}
-                searchInput={this.state.searchInput}
                 searchNews={this.searchNews}
-                toggleMenu={this.toggleMenu} />
-              <Nav
                 getTopicNews={this.getTopicNews}
-                clearSearch={this.clearSearch}
-                menuOpen={this.state.menuOpen}
-                toggleMenu={this.toggleMenu}  />
-
+                clearSearch={this.clearSearch} />
               <Switch>
                 <Route exact path="/"
                   component={(props) =>
@@ -192,27 +139,21 @@ class App extends React.Component {
                       searching={this.state.searching}
                       getCountryNews={this.getCountryNews}
                       getWorldNews={this.getWorldNews}
-                   /> }
-                 />
+                     /> }
+                   />
                 <Route path="/topic/:topic"
                   component={(props) =>
-                    <Topic
-                      {...props}
-                      getTopicNews={this.getTopicNews}
-                      topicNews={this.state.topicNews}
-                      searching={this.state.searching} />
-                    } />
+                    <Topic {...props} searching={this.state.searching} />
+                } />
                 <Route exact path="/results"
                   component={(props) =>
                     <SearchResults
                     {...props}
-                    searchInput={this.state.searchInput}
                     searchNews={this.searchNews}
                     results={this.state.searchResults}
                     clearSearch={this.clearSearch}
-                    searching={this.state.searching}
-                    error={this.state.error}/>
-                } />
+                    searching={this.state.searching} />
+                  } />
                 <Route
                   component={() => <h1>Requested Info Not Found...</h1>}
                 />

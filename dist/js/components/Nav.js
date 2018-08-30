@@ -3,9 +3,8 @@ import { NavLink, Link} from 'react-router-dom';
 
 export default function Nav(props){
   function switchTopic(event){
-    props.toggleMenu();
     props.clearSearch();
-    props.getTopicNews(event.target.textContent.toLowerCase())
+    props.toggleMenu();
   }
 
 

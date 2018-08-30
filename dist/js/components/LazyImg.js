@@ -6,7 +6,6 @@ if (!document.lazyLoadInstance) {
     elements_selector: '.lazyImg',
     threshold: 300,
     callback_load: function(img){
-      console.log('img loaded');
       img.classList.add = 'loaded';
     }
   });
@@ -21,7 +20,7 @@ export default class LazyImg extends React.Component {
     document.lazyLoadInstance.update();
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(prevProps, prevState){
     document.lazyLoadInstance.update();
   }
 
@@ -29,7 +28,7 @@ export default class LazyImg extends React.Component {
     return(
       <img
         className="lazyImg"
-        data-src={this.props.src}
+          data-src={this.props.src}
         onError={(event) => {
             event.target.src="https://via.placeholder.com/350x150" }} />
     );
