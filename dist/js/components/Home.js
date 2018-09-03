@@ -1,44 +1,121 @@
 import React from "react";
+import axios from 'axios';
 import LazyLoad from 'react-LazyLoad';
 import ReactTransition from 'react-addons-css-transition-group';
 
 class Home extends React.Component {
   constructor(props) {
   super(props);
+  this.state = {
+    country: 'us',
+    countryNews: [],
+    worldNews: [],
+    countryNewsLoaded: false,
+    worldNewsLoaded: false,
+    worldPage: 1,
+  }
+  this.toggleCountry = this.toggleCountry.bind(this);
+  this.getMoreNews = this.getMoreNews.bind(this);
+  this.getCountryNews = this.getCountryNews.bind(this);
+  this.getWorldNews = this.getWorldNews.bind(this);
+}
+
+toggleCountry(event){
+  let country = event.target.value;
+  axios.get(`${process.env.HOSTDOMAIN}/country/${country}`)
+  .then((response) => {
+    this.setState({
+      country: country,
+      countryNews: response.data.articles,
+    })
+  }).catch((err) => {
+      console.log(err);
+      this.setState({
+        searchResults: 'error'
+      })
+    });
+}
+
+getCountryNews(){
+  axios.get(`${process.env.HOSTDOMAIN}/country/${this.state.country}`)
+  .then((response) => {
+    this.setState({
+      countryNews: response.data.articles,
+      countryNewsLoaded: true
+    });
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
+getWorldNews(){
+  axios.get(`${process.env.HOSTDOMAIN}/world`)
+  .then((response) => {
+    this.setState({
+      worldNews: response.data.articles,
+      worldNewsLoaded: true
+
+    });
+  }).catch((err) => {
+    console.log(err);
+    this.setState({
+      worldNews: 'error'
+    })
+  })
+}
+
+getMoreNews(direction){
+  let pageNum = direction === 'next' ? this.state.worldPage + 1 : this.state.worldPage - 1;
+  let totalWorld = this.state.worldNews;
+  axios.get(`${process.env.HOSTDOMAIN}/world/${pageNum}`)
+  .then((response) => {
+    this.setState({
+      worldNews: totalWorld.concat(response.data.articles),
+      worldPage: pageNum
+    });
+  }).catch((err) => {
+    console.log(err);
+    this.setState({
+      searchResults: 'error'
+    })
+  })
 }
 
 componentDidMount(){
   if(this.props.searching === true){
-    this.props.history.push('/results')
-  }
-  if((this.props.countryNews.length === 0) && (this.props.worldNews.length === 0)){
-    this.props.getCountryNews();
-    this.props.getWorldNews();
+    this.props.history.push('/results');
+  } else {
+      if(this.state.countryNewsLoaded === false){
+        this.getCountryNews()
+      }
+      if(this.state.worldNewsLoaded === false){
+        this.getWorldNews();
+      }
   }
 }
 
-componentDidUpdate(){
-  if((this.props.countryNews.length === 0) && (this.props.worldNews.length === 0)){
-    this.props.getCountryNews();
-    this.props.getWorldNews();
-  }
+componentWillUnmount(){
+  this.setState({
+    countryNewsLoaded: false,
+    worldNewsLoaded: false
+  })
 }
+
 
   render() {
       return (
         <section className='homeNews newsWrapper'>
-
           <section className="countryNews">
             <header className="newsHeader countryNewsHeader">
               <h1>
                 TOP HEADLINES for
-                <CountrySelector  country={this.props.country} toggleCountry={this.props.toggleCountry} />
+                <CountrySelector  country={this.state.country} toggleCountry={this.toggleCountry} />
               </h1>
             </header>
 
             <ul className="articleGrid articleGrid--country">
-            {this.props.countryNewsLoaded === true &&
-              this.props.countryNews.map((article, index) =>
+            {this.state.countryNewsLoaded === true &&
+              this.state.countryNews.map((article, index) =>
                 <li  className="article countryArticle" key={index} >
                   <a href={article.url} target="_blank">
                 <header>
@@ -53,8 +130,8 @@ componentDidUpdate(){
                     transitionName="lazyImg"
                     transitionAppear={true}
                     transitionAppearTimeout={1000}
-                    transitionEnter={false}
-                    transitionLeave={false}>
+                    transitionEnterTimeout={1000}
+                    transitionLeaveTimeout={500}>
                     <img
                       key={index}
                       src={article.urlToImage}
@@ -72,8 +149,8 @@ componentDidUpdate(){
               <h1>TOP HEADLINES WORLDWIDE</h1>
             </header>
             <ul className="articleGrid">
-              {this.props.worldNewsLoaded === true &&
-                this.props.worldNews.map((article, index) =>
+              {this.state.worldNewsLoaded === true &&
+                this.state.worldNews.map((article, index) =>
                     <li  key={index} className="article articleGrid--small">
                       <a href={article.url} target="_blank"
                         className=" articleGrid--small">
@@ -103,7 +180,7 @@ componentDidUpdate(){
                       </a>
                     </li>)}
             </ul>
-            <button className="siteBtn" onClick={() => this.props.getMoreNews('next')}>
+            <button className="siteBtn" onClick={() => this.getMoreNews('next')}>
               See More
             </button>
           </section>

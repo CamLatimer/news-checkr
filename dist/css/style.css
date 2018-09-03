@@ -140,12 +140,20 @@ nav ul li a:hover{
   max-width: 100%;
   margin-bottom: .5rem;
 }
-.lazyImg-appear{
+.lazyImg-appear, .lazyImg-enter{
   opacity:0;
 }
-.lazyImg-appear.lazyImg-appear-active{
+.lazyImg-appear.lazyImg-appear-active,
+.lazyImg-enter.lazyImg-enter-active {
   opacity: 1;
   transition: opacity 1s ease-in;
+}
+.lazyImg-leave{
+  opacity: 1;
+}
+.lazyImg-leave.lazyImg-leave-active{
+  opacity: .01;
+  transition: opacity  0.5s ease-in;
 }
 .article header p{
   margin-bottom: .5rem;
