@@ -1,5 +1,6 @@
 import React from "react";
-import LazyImg from './LazyImg';
+import LazyLoad from 'react-LazyLoad';
+import ReactTransition from 'react-addons-css-transition-group';
 
 class Home extends React.Component {
   constructor(props) {
@@ -47,7 +48,20 @@ componentDidUpdate(){
                     {article.description}
                   </p>
                 </header>
-                <LazyImg src={article.urlToImage} />
+                <LazyLoad height={200} offset={200}>
+                  <ReactTransition
+                    transitionName="lazyImg"
+                    transitionAppear={true}
+                    transitionAppearTimeout={1000}
+                    transitionEnter={false}
+                    transitionLeave={false}>
+                    <img
+                      key={index}
+                      src={article.urlToImage}
+                      onError={(event) => {
+                          event.target.src="https://via.placeholder.com/350x150" }} />
+                  </ReactTransition>
+                </LazyLoad>
                   </a>
               </li>)}
             </ul>
@@ -71,7 +85,20 @@ componentDidUpdate(){
                         </p>
                       </header>
                       <div>
-                        <LazyImg src={article.urlToImage} />
+                        <LazyLoad height={200} offset={200}>
+                          <ReactTransition
+                            transitionName="lazyImg"
+                            transitionAppear={true}
+                            transitionAppearTimeout={1000}
+                            transitionEnter={false}
+                            transitionLeave={false}>
+                            <img
+                              key={index}
+                              src={article.urlToImage}
+                              onError={(event) => {
+                                  event.target.src="https://via.placeholder.com/350x150" }} />
+                          </ReactTransition>
+                        </LazyLoad>
                       </div>
                       </a>
                     </li>)}

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios';
-import LazyImg from './LazyImg';
+import LazyLoad from 'react-LazyLoad';
+import ReactTransition from 'react-addons-css-transition-group';
 
 class Topic extends React.Component{
   constructor(props){
@@ -45,7 +46,6 @@ class Topic extends React.Component{
 
 
   render(){
-    console.log(this.props.searching);
     if(this.props.topicNews === 'error'){
       return <h1>An error occurred... pleast try again...</h1>
     } else {
@@ -65,7 +65,20 @@ class Topic extends React.Component{
                     </summary>
                   </header>
                   <div>
-                    <LazyImg src={article.urlToImage} />
+                    <LazyLoad height={200} offset={200}>
+                      <ReactTransition
+                        transitionName="lazyImg"
+                        transitionAppear={true}
+                        transitionAppearTimeout={1000}
+                        transitionEnter={false}
+                        transitionLeave={false}>
+                        <img
+                          key={index}
+                          src={article.urlToImage}
+                          onError={(event) => {
+                              event.target.src="https://via.placeholder.com/350x150" }} />
+                      </ReactTransition>
+                    </LazyLoad>
                   </div>
                 </li>
               )}

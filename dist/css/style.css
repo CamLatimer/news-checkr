@@ -140,12 +140,12 @@ nav ul li a:hover{
   max-width: 100%;
   margin-bottom: .5rem;
 }
-.lazyImg{
+.lazyImg-appear{
   opacity:0;
-  transition: 2.5s;
 }
-.loaded{
+.lazyImg-appear.lazyImg-appear-active{
   opacity: 1;
+  transition: opacity 1s ease-in;
 }
 .article header p{
   margin-bottom: .5rem;
