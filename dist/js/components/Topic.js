@@ -29,6 +29,12 @@ class Topic extends React.Component{
     })
   }
 
+  componentDidUpdate(prevProps){
+    if(prevProps !== this.props){
+      this.getTopicNews(this.props.match.params.topic)
+    }
+  }
+
   getTopicNews(topic){
     axios.get(`${process.env.HOSTDOMAIN}/category/${topic}`)
     .then((response) => {
