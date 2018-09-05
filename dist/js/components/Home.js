@@ -125,18 +125,26 @@ componentWillUnmount(){
                     {article.description}
                   </p>
                 </header>
-                <LazyLoad height={200} offset={200}>
+                <LazyLoad
+                  height={200}
+                  offset={200}>
                   <ReactTransition
+                    className="lazyLoadContainer"
                     transitionName="lazyImg"
                     transitionAppear={true}
                     transitionAppearTimeout={1000}
                     transitionEnterTimeout={1000}
                     transitionLeaveTimeout={500}>
-                    <img
-                      key={index}
-                      src={article.urlToImage}
-                      onError={(event) => {
-                          event.target.src="https://via.placeholder.com/350x150" }} />
+                    { article.urlToImage !== null &&
+                      <img
+                        key={index}
+                        src={article.urlToImage}
+                        onError={(event) => {
+                            event.target.src="https://via.placeholder.com/350x150" }} /> }
+                    { article.urlToImage === null &&
+                      <div className="placeHolderImg" alt="placeholder image">
+                        <h1>{article.source.name}</h1>
+                      </div> }
                   </ReactTransition>
                 </LazyLoad>
                   </a>
@@ -162,18 +170,26 @@ componentWillUnmount(){
                         </p>
                       </header>
                       <div>
-                        <LazyLoad height={200} offset={200}>
+                        <LazyLoad
+                          height={200}
+                          offset={200}>
                           <ReactTransition
+                            className="lazyLoadContainer"
                             transitionName="lazyImg"
                             transitionAppear={true}
                             transitionAppearTimeout={1000}
-                            transitionEnter={false}
-                            transitionLeave={false}>
-                            <img
-                              key={index}
-                              src={article.urlToImage}
-                              onError={(event) => {
-                                  event.target.src="https://via.placeholder.com/350x150" }} />
+                            transitionEnterTimeout={1000}
+                            transitionLeaveTimeout={500}>
+                            { article.urlToImage !== null &&
+                              <img
+                                key={index}
+                                src={article.urlToImage}
+                                onError={(event) => {
+                                    event.target.src="https://via.placeholder.com/350x150" }} /> }
+                            { article.urlToImage === null &&
+                              <div className="placeHolderImg" alt="placeholder image">
+                                <h1>{article.source.name}</h1>
+                              </div> }
                           </ReactTransition>
                         </LazyLoad>
                       </div>
